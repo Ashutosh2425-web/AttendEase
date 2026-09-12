@@ -1,0 +1,138 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | AttendEase</title>
+
+    <link rel="stylesheet"
+          href="{% static 'attendance/css/style.css' %}">
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <div class="brand">
+
+            <img
+                src="{% static 'attendance/images/university-logo.png' %}"
+                alt="University Logo"
+                class="logo"
+            >
+
+            <div class="brand-text">
+                <h1>AttendEase</h1>
+                <span>Attendance Management System</span>
+            </div>
+
+        </div>
+
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+
+            <button type="submit" class="login-button">
+                Logout
+            </button>
+        </form>
+
+    </header>
+
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <span class="welcome-tag">
+                    ADMIN DASHBOARD
+                </span>
+
+                <h2>
+                    Welcome to
+                    <span>AttendEase.</span>
+                </h2>
+
+                <p>
+                    You have successfully logged in.
+                    From here, you will be able to manage students,
+                    record attendance and view attendance reports.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="features">
+
+            <div class="section-heading">
+
+                <span>ATTENDANCE MANAGEMENT</span>
+
+                <h2>
+                    Manage Your Attendance System
+                </h2>
+
+                <p>
+                    More dashboard features will be added step by step.
+                </p>
+
+            </div>
+
+
+            <div class="feature-grid">
+
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍🎓</div>
+
+                    <h3>Students</h3>
+
+                    <p>
+                        Add, update and manage student information.
+                    </p>
+                </div>
+
+
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+
+                    <h3>Attendance</h3>
+
+                    <p>
+                        Record and manage daily student attendance.
+                    </p>
+                </div>
+
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+
+                    <h3>Reports</h3>
+
+                    <p>
+                        View attendance statistics and reports.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            © 2026 AttendEase · Attendance Management System
+        </p>
+
+    </footer>
+
+</body>
+</html>

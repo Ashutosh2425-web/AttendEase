@@ -31,7 +31,7 @@
 
         </div>
 
-        <a href="/admin/" class="login-button">
+        <a href="{% url 'login' %}" class="login-button">
             Admin Login
         </a>
 
@@ -62,8 +62,8 @@
 
                 <div class="hero-buttons">
 
-                    <a href="/admin/" class="primary-button">
-                        Go to Admin Panel
+                    <a href="{% url 'login' %}" class="primary-button">
+                        Admin Login
                     </a>
 
                     <a href="#features" class="secondary-button">

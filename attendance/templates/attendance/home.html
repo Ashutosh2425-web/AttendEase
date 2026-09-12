@@ -1,0 +1,180 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AttendEase | Attendance Management System</title>
+
+    <link rel="stylesheet" href="{% static 'attendance/css/style.css' %}">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+
+        <div class="brand">
+
+            <img
+                src="{% static 'attendance/images/university-logo.png' %}"
+                alt="University Logo"
+                class="logo"
+            >
+
+            <div class="brand-text">
+                <h1>AttendEase</h1>
+                <span>Attendance Management System</span>
+            </div>
+
+        </div>
+
+        <a href="/admin/" class="login-button">
+            Admin Login
+        </a>
+
+    </header>
+
+
+    <!-- Hero Section -->
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <span class="welcome-tag">
+                    UNIVERSITY ATTENDANCE PORTAL
+                </span>
+
+                <h2>
+                    Smart Attendance,
+                    <span>Made Simple.</span>
+                </h2>
+
+                <p>
+                    AttendEase is a centralized attendance management
+                    system designed to make student attendance tracking
+                    simple, accurate and efficient.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="/admin/" class="primary-button">
+                        Go to Admin Panel
+                    </a>
+
+                    <a href="#features" class="secondary-button">
+                        Explore Features
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-logo">
+
+                <div class="logo-card">
+
+                    <img
+                        src="{% static 'attendance/images/university-logo.png' %}"
+                        alt="University Logo"
+                    >
+
+                    <h3>AttendEase</h3>
+
+                    <p>
+                        Your Attendance. Your Progress.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+
+            <div class="section-heading">
+
+                <span>WHY ATTENDEASE?</span>
+
+                <h2>
+                    Everything You Need to Manage Attendance
+                </h2>
+
+                <p>
+                    A simple and organized platform for managing
+                    students and attendance records.
+                </p>
+
+            </div>
+
+
+            <div class="feature-grid">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">👨‍🎓</div>
+
+                    <h3>Student Management</h3>
+
+                    <p>
+                        Maintain student information including
+                        roll number, registration number, branch
+                        and semester.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">📋</div>
+
+                    <h3>Attendance Tracking</h3>
+
+                    <p>
+                        Record and manage daily attendance
+                        records for students in an organized way.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">📊</div>
+
+                    <h3>Attendance Reports</h3>
+
+                    <p>
+                        View attendance information and generate
+                        useful reports for academic purposes.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 AttendEase · Attendance Management System
+        </p>
+
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,197 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Students | AttendEase</title>
+
+    <link rel="stylesheet"
+          href="{% static 'attendance/css/style.css' %}">
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <div class="brand">
+
+            <img
+                src="{% static 'attendance/images/university-logo.png' %}"
+                alt="University Logo"
+                class="logo"
+            >
+
+            <div class="brand-text">
+                <h1>AttendEase</h1>
+                <span>Attendance Management System</span>
+            </div>
+
+        </div>
+
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+
+            <button type="submit" class="login-button">
+                Logout
+            </button>
+        </form>
+
+    </header>
+
+
+    <main>
+
+        <section class="features">
+
+            <div class="section-heading">
+
+                <span>STUDENT MANAGEMENT</span>
+
+                <h2>
+                    Students
+                </h2>
+
+                <p>
+                    View and manage all registered students.
+                </p>
+
+            </div>
+
+
+        
+
+            <div class="student-actions">
+
+                <a
+                    href="{% url 'add_student' %}"
+                    class="primary-button"
+                >
+                    + Add Student
+                </a>
+
+                <a
+                    href="{% url 'bulk_import' %}"
+                    class="secondary-button"
+                >
+                    Import Students
+                </a>
+
+            </div>
+
+
+    
+            <div class="student-table-container">
+
+                {% if students %}
+
+                    <table class="student-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Name</th>
+                                <th>Roll Number</th>
+                                <th>Email</th>
+                                <th>Branch</th>
+                                <th>Semester</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for student in students %}
+
+                                <tr>
+
+                                    <td>
+                                        {{ student.name }}
+                                    </td>
+
+                                    <td>
+                                        {{ student.roll_number }}
+                                    </td>
+
+                                    <td>
+                                        {{ student.email }}
+                                    </td>
+
+                                    <td>
+                                        {{ student.branch }}
+                                    </td>
+
+                                    <td>
+                                        {{ student.semester }}
+                                    </td>
+
+                                    <td>
+
+                                        <form
+                                            method="POST"
+                                            action="{% url 'delete_student' student.id %}"
+                                            onsubmit="return confirm('Are you sure you want to delete this student?');"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="delete-button"
+                                            >
+                                                Delete
+                                            </button>
+
+                                        </form>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                {% else %}
+
+                    <div class="empty-students">
+
+                        <div class="feature-icon">
+                            👨‍🎓
+                        </div>
+
+                        <h3>
+                            No Students Found
+                        </h3>
+
+                        <p>
+                            There are currently no students
+                            registered in AttendEase.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            © 2026 AttendEase · Attendance Management System
+        </p>
+
+    </footer>
+
+</body>
+</html>

@@ -576,3 +576,17 @@ footer {
     }
 
 }
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.delete-button:hover {
+    background-color: #b02a37;
+}

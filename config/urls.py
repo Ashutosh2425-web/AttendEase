@@ -17,7 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from attendance.views import home, login_view, dashboard, logout_view
+from attendance.views import (
+    home,
+    login_view,
+    dashboard,
+    student_list,
+    add_student,
+    bulk_import,
+    delete_student,
+    mark_attendance,
+    attendance_report,
+    logout_view,
+)
 
 
 urlpatterns = [
@@ -28,6 +39,30 @@ urlpatterns = [
     path('login/', login_view, name='login'),
 
     path('dashboard/', dashboard, name='dashboard'),
+
+    path('students/', student_list, name='student_list'),
+
+    path('students/add/', add_student, name='add_student'),
+
+    path('students/import/', bulk_import, name='bulk_import'),
+
+    path(
+        'students/delete/<int:student_id>/',
+        delete_student,
+        name='delete_student'
+    ),
+
+    path(
+        'attendance/',
+        mark_attendance,
+        name='mark_attendance'
+    ),
+
+    path(
+        'attendance/report/',
+        attendance_report,
+        name='attendance_report'
+    ),
 
     path('logout/', logout_view, name='logout'),
 ]

@@ -1,0 +1,142 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Import Students | AttendEase</title>
+
+    <link rel="stylesheet"
+          href="{% static 'attendance/css/style.css' %}">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+
+        <div class="brand">
+
+            <img
+                src="{% static 'attendance/images/university-logo.png' %}"
+                alt="University Logo"
+                class="logo"
+            >
+
+            <div class="brand-text">
+                <h1>AttendEase</h1>
+                <span>Attendance Management System</span>
+            </div>
+
+        </div>
+
+        <a href="{% url 'student_list' %}" class="login-button">
+            Back to Students
+        </a>
+
+    </header>
+
+
+    <!-- Import Section -->
+    <main>
+
+        <section class="features">
+
+            <div class="section-heading">
+
+                <span>STUDENT MANAGEMENT</span>
+
+                <h2>
+                    Import Students
+                </h2>
+
+                <p>
+                    Paste the student list provided by your faculty
+                    and import the students into AttendEase.
+                </p>
+
+            </div>
+
+
+            <div class="student-form-container">
+
+                <form method="POST" class="student-form">
+
+                    {% csrf_token %}
+
+                    <div class="form-group">
+
+                        <label for="student_data">
+                            Student Data
+                        </label>
+
+                        <textarea
+                            id="student_data"
+                            name="student_data"
+                            rows="18"
+                            placeholder="Paste student name, email and roll/registration number here..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Branch
+                        </label>
+
+                        <input
+                            type="text"
+                            value="CSE"
+                            readonly
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Semester
+                        </label>
+
+                        <input
+                            type="text"
+                            value="5"
+                            readonly
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="login-submit"
+                    >
+                        Import Students
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 AttendEase · Attendance Management System
+        </p>
+
+    </footer>
+
+</body>
+</html>

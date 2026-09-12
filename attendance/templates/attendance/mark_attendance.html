@@ -1,0 +1,379 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mark Attendance | AttendEase</title>
+
+    <link rel="stylesheet"
+          href="{% static 'attendance/css/style.css' %}">
+
+    <style>
+        .attendance-option {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .attendance-option input {
+            display: none;
+        }
+
+        .present-option {
+            color: #198754;
+        }
+
+        .absent-option {
+            color: #dc3545;
+        }
+
+        .present-option:has(input:checked) {
+            background-color: #198754;
+            color: white;
+            border-color: #198754;
+        }
+
+        .absent-option:has(input:checked) {
+            background-color: #dc3545;
+            color: white;
+            border-color: #dc3545;
+        }
+
+        .attendance-option:hover {
+            transform: translateY(-1px);
+        }
+
+        .attendance-date {
+            margin-bottom: 25px;
+        }
+
+        .attendance-date label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .attendance-date input {
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .attendance-actions {
+            margin-top: 25px;
+        }
+
+        .attendance-message {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background-color: #198754;
+            color: white;
+            padding: 14px 22px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            animation: messageSlide 0.4s ease;
+        }
+
+        .mark-all-present {
+            margin-bottom: 20px;
+            padding: 10px 18px;
+            background-color: #198754;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .mark-all-present:hover {
+            background-color: #157347;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="attendance-message">
+                ✅ {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+    <header class="navbar">
+
+        <div class="brand">
+
+            <img
+                src="{% static 'attendance/images/university-logo.png' %}"
+                alt="University Logo"
+                class="logo"
+            >
+
+            <div class="brand-text">
+                <h1>AttendEase</h1>
+                <span>Attendance Management System</span>
+            </div>
+
+        </div>
+
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+
+            <button type="submit" class="login-button">
+                Logout
+            </button>
+
+        </form>
+
+    </header>
+
+    <main>
+
+        <section class="features">
+
+            <div class="section-heading">
+
+                <span>ATTENDANCE MANAGEMENT</span>
+
+                <h2>
+                    Mark Attendance
+                </h2>
+
+                <p>
+                    Mark attendance for CSE 5th Semester students.
+                </p>
+
+            </div>
+
+            <form
+                method="POST"
+                action="{% url 'mark_attendance' %}"
+            >
+
+                {% csrf_token %}
+
+                <div class="attendance-date">
+
+                    <label for="attendance-date">
+                        Attendance Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="attendance-date"
+                        name="date"
+                        value="{{ selected_date }}"
+                        required
+                    >
+
+                </div>
+
+                {% if students %}
+
+                    <button
+                        type="button"
+                        class="mark-all-present"
+                        onclick="markAllPresent()"
+                    >
+                        ✓ Mark All Present
+                    </button>
+
+                {% endif %}
+
+                <div class="student-table-container">
+
+                    {% if students %}
+
+                        <table class="student-table">
+
+                            <thead>
+
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Roll Number</th>
+                                    <th>Present</th>
+                                    <th>Absent</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                {% for student in students %}
+
+                                    <tr>
+
+                                        <td>
+                                            {{ student.name }}
+                                        </td>
+
+                                        <td>
+                                            {{ student.roll_number }}
+                                        </td>
+
+                                        <td>
+
+                                            <label class="attendance-option present-option">
+
+                                                <input
+                                                    type="radio"
+                                                    name="student_{{ student.id }}"
+                                                    value="present"
+                                                    {% if student.attendance_status == True %}checked{% endif %}
+                                                    required
+                                                >
+
+                                                <span>
+                                                    Present
+                                                </span>
+
+                                            </label>
+
+                                        </td>
+
+                                        <td>
+
+                                            <label class="attendance-option absent-option">
+
+                                                <input
+                                                    type="radio"
+                                                    name="student_{{ student.id }}"
+                                                    value="absent"
+                                                    {% if student.attendance_status == False and student.attendance_status is not None %}checked{% endif %}
+                                                >
+
+                                                <span>
+                                                    Absent
+                                                </span>
+
+                                            </label>
+
+                                        </td>
+
+                                    </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    {% else %}
+
+                        <div class="empty-students">
+
+                            <div class="feature-icon">
+                                👨‍🎓
+                            </div>
+
+                            <h3>
+                                No Students Found
+                            </h3>
+
+                            <p>
+                                Add students before marking attendance.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+                {% if students %}
+
+                    <div class="attendance-actions">
+
+                        <button
+                            type="submit"
+                            class="primary-button"
+                        >
+                            Save Attendance
+                        </button>
+
+                    </div>
+
+                {% endif %}
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <p>
+            © 2026 AttendEase · Attendance Management System
+        </p>
+
+    </footer>
+
+    <script>
+        function markAllPresent() {
+
+            const presentButtons = document.querySelectorAll(
+                'input[type="radio"][value="present"]'
+            );
+
+            presentButtons.forEach(function(button) {
+                button.checked = true;
+            });
+        }
+
+        setTimeout(function() {
+
+            const message = document.querySelector(
+                '.attendance-message'
+            );
+
+            if (message) {
+
+                message.style.opacity = '0';
+
+                setTimeout(function() {
+                    message.remove();
+                }, 400);
+            }
+
+        }, 3000);
+    </script>
+
+</body>
+</html>

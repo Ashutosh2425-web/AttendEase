@@ -10,6 +10,469 @@
 
     <link rel="stylesheet"
           href="{% static 'attendance/css/style.css' %}">
+
+    <style>
+
+        body {
+            margin: 0;
+            background: #f5f8fc;
+            font-family: Arial, sans-serif;
+            color: #17233c;
+        }
+
+        .dashboard-container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 32px 45px 0;
+        }
+
+        .dashboard-hero {
+            position: relative;
+            min-height: 220px;
+            border-radius: 18px;
+            overflow: hidden;
+            margin-bottom: 28px;
+            background: linear-gradient(
+                110deg,
+                #fde7ed,
+                #fff1f3,
+                #fbe9ee
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 58%;
+            padding: 38px 45px;
+        }
+
+        .hero-label {
+            color: #c7192e;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+        }
+
+        .hero-content h2 {
+            margin: 0;
+            font-size: 42px;
+            line-height: 1.15;
+            color: #17233c;
+        }
+
+        .hero-content h2 span {
+            color: #c7192e;
+        }
+
+        .hero-content p {
+            margin: 14px 0;
+            color: #607089;
+            font-size: 18px;
+        }
+
+        .hero-tagline {
+            color: #718096;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 4px;
+        }
+
+        .hero-line {
+            display: inline-block;
+            width: 42px;
+            height: 3px;
+            background: #c7192e;
+            margin-right: 15px;
+            vertical-align: middle;
+        }
+
+        .college-photo {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 48%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            mask-image: linear-gradient(
+                to right,
+                transparent 0%,
+                black 25%
+            );
+            -webkit-mask-image: linear-gradient(
+                to right,
+                transparent 0%,
+                black 25%
+            );
+        }
+
+        .knowledge-text {
+            position: absolute;
+            right: 45px;
+            top: 35px;
+            z-index: 3;
+            color: #9aa4b5;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .dashboard-card {
+            position: relative;
+            overflow: hidden;
+            background: white;
+            border: 1px solid #e5eaf1;
+            border-radius: 16px;
+            padding: 26px;
+            min-height: 300px;
+            box-shadow: 0 5px 18px rgba(30, 50, 80, 0.06);
+        }
+
+        .dashboard-card::after {
+            content: "";
+            position: absolute;
+            right: -80px;
+            bottom: -100px;
+            width: 250px;
+            height: 190px;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        .students-card::after {
+            background: #fde8ed;
+        }
+
+        .attendance-card::after {
+            background: #e7f6ed;
+        }
+
+        .reports-card::after {
+            background: #e6f0fc;
+        }
+
+        .card-icon {
+            width: 58px;
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .students-icon {
+            background: #fde0e6;
+        }
+
+        .attendance-icon {
+            background: #e1f4e8;
+        }
+
+        .reports-icon {
+            background: #e1eefc;
+        }
+
+        .card-arrow {
+            position: absolute;
+            top: 28px;
+            right: 28px;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 25px;
+            z-index: 2;
+        }
+
+        .students-arrow {
+            background: #fde7eb;
+            color: #c7192e;
+        }
+
+        .attendance-arrow {
+            background: #e5f6eb;
+            color: #16884e;
+        }
+
+        .reports-arrow {
+            background: #e4effd;
+            color: #1976d2;
+        }
+
+        .dashboard-card h3 {
+            position: relative;
+            z-index: 2;
+            margin: 5px 0 8px;
+            font-size: 27px;
+            color: #17233c;
+        }
+
+        .dashboard-card p {
+            position: relative;
+            z-index: 2;
+            color: #607089;
+            font-size: 16px;
+            line-height: 1.5;
+            min-height: 48px;
+        }
+
+        .card-button {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 14px 20px;
+            border-radius: 9px;
+            margin-top: 18px;
+            transition: all 0.25s ease;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 9px 20px rgba(0, 0, 0, 0.18);
+        }
+
+        .students-button {
+            background: linear-gradient(
+                135deg,
+                #d71935,
+                #b8122b
+            );
+        }
+
+        .students-button:hover {
+            background: linear-gradient(
+                135deg,
+                #e21c3a,
+                #c3132e
+            );
+        }
+
+        .attendance-button {
+            background: linear-gradient(
+                135deg,
+                #1aa05d,
+                #12824a
+            );
+        }
+
+        .attendance-button:hover {
+            background: linear-gradient(
+                135deg,
+                #1db367,
+                #0f7442
+            );
+        }
+
+        .reports-button {
+            background: linear-gradient(
+                135deg,
+                #2684e8,
+                #176ac4
+            );
+        }
+
+        .reports-button:hover {
+            background: linear-gradient(
+                135deg,
+                #328ff0,
+                #1260b7
+            );
+        }
+
+        .button-icon {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.18);
+            border-radius: 7px;
+            font-size: 18px;
+        }
+
+        .button-arrow {
+            font-size: 21px;
+            transition: transform 0.25s ease;
+        }
+
+        .card-button:hover .button-arrow {
+            transform: translateX(5px);
+        }
+
+        .card-info {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            padding-top: 17px;
+            border-top: 1px solid #e8edf3;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: #607089;
+            font-size: 13px;
+        }
+
+        .info-item strong {
+            display: block;
+            color: #17233c;
+            font-size: 16px;
+            margin-top: 3px;
+        }
+
+        .quote-box {
+            margin: 22px 0 0;
+            padding: 17px 25px;
+            background: white;
+            border: 1px solid #dfe6ef;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 4px 15px rgba(30, 50, 80, 0.04);
+        }
+
+        .quote-number {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #fde2e7;
+            color: #c7192e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .quote-text {
+            flex: 1;
+            color: #607089;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        .quote-author {
+            color: #c7192e;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        .dashboard-footer {
+            margin-top: 18px;
+            background: #172238;
+            color: white;
+            padding: 25px 45px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-brand h3 {
+            margin: 0 0 5px;
+            font-size: 18px;
+        }
+
+        .footer-brand p {
+            margin: 0;
+            color: #b8c1d0;
+            font-size: 12px;
+        }
+
+        .footer-copy {
+            color: #b8c1d0;
+            font-size: 13px;
+        }
+
+        .footer-message {
+            color: #b8c1d0;
+            font-size: 13px;
+        }
+
+        .footer-message span {
+            color: #e02b45;
+            font-size: 18px;
+        }
+
+        @media (max-width: 1000px) {
+
+            .dashboard-container {
+                padding: 25px;
+            }
+
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content {
+                width: 100%;
+                padding: 35px;
+            }
+
+            .college-photo {
+                opacity: 0.22;
+                width: 70%;
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .dashboard-container {
+                padding: 15px;
+            }
+
+            .hero-content h2 {
+                font-size: 32px;
+            }
+
+            .hero-content p {
+                font-size: 15px;
+            }
+
+            .knowledge-text {
+                display: none;
+            }
+
+            .quote-box {
+                flex-wrap: wrap;
+            }
+
+            .dashboard-footer {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -37,100 +500,269 @@
             <button type="submit" class="login-button">
                 Logout
             </button>
+
         </form>
 
     </header>
 
+    <div class="dashboard-container">
 
-    <main>
-
-        <section class="hero">
+        <section class="dashboard-hero">
 
             <div class="hero-content">
 
-                <span class="welcome-tag">
-                    ADMIN DASHBOARD
-                </span>
+                <div class="hero-label">
+                    ATTENDANCE MANAGEMENT SYSTEM
+                </div>
 
                 <h2>
-                    Welcome to
-                    <span>AttendEase.</span>
+                    Welcome to <span>AttendEase</span>
                 </h2>
 
                 <p>
-                    You have successfully logged in.
-                    From here, you will be able to manage students,
-                    record attendance and view attendance reports.
+                    Manage students, mark attendance, and view attendance reports from one place.
                 </p>
+
+                <div class="hero-tagline">
+                    <span class="hero-line"></span>
+                    SIMPLE • EFFICIENT • RELIABLE
+                </div>
+
+            </div>
+
+            <div class="knowledge-text">
+                KNOWLEDGE BUILDS TOMORROW
+            </div>
+
+            <img
+                src="{% static 'attendance/images/college-building.jpg' %}"
+                alt="College Building"
+                class="college-photo"
+            >
+
+        </section>
+
+
+        <section class="dashboard-cards">
+
+
+            <div class="dashboard-card students-card">
+
+                <div class="card-icon students-icon">
+                    👥
+                </div>
+
+                <div class="card-arrow students-arrow">
+                    →
+                </div>
+
+                <h3>
+                    Students
+                </h3>
+
+                <p>
+                    Add, import, view, and manage registered students.
+                </p>
+
+                <a
+                    href="{% url 'student_list' %}"
+                    class="card-button students-button"
+                >
+                    <span class="button-icon">
+                        👥
+                    </span>
+
+                    <span>
+                        Manage Students
+                    </span>
+
+                    <span class="button-arrow">
+                        →
+                    </span>
+                </a>
+
+                <div class="card-info">
+
+                    <div class="info-item">
+                        🎓
+                        <div>
+                            Total Students
+                            <strong>{{ total_students }}</strong>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        🏫
+                        <div>
+                            Department
+                            <strong>CSE</strong>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-card attendance-card">
+
+                <div class="card-icon attendance-icon">
+                    📅
+                </div>
+
+                <div class="card-arrow attendance-arrow">
+                    →
+                </div>
+
+                <h3>
+                    Attendance
+                </h3>
+
+                <p>
+                    Mark daily attendance for CSE 5th Semester students.
+                </p>
+
+                <a
+                    href="{% url 'mark_attendance' %}"
+                    class="card-button attendance-button"
+                >
+                    <span class="button-icon">
+                        📅
+                    </span>
+
+                    <span>
+                        Mark Attendance
+                    </span>
+
+                    <span class="button-arrow">
+                        →
+                    </span>
+                </a>
+
+                <div class="card-info">
+
+                    <div class="info-item">
+                        📅
+                        <div>
+                            Today's Date
+                            <strong>{{ today|date:"M d, Y" }}</strong>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        🟢
+                        <div>
+                            Status
+                            <strong>Ready</strong>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-card reports-card">
+
+                <div class="card-icon reports-icon">
+                    📊
+                </div>
+
+                <div class="card-arrow reports-arrow">
+                    →
+                </div>
+
+                <h3>
+                    Reports
+                </h3>
+
+                <p>
+                    View attendance percentage and 75% attendance status.
+                </p>
+
+                <a
+                    href="{% url 'attendance_report' %}"
+                    class="card-button reports-button"
+                >
+                    <span class="button-icon">
+                        📊
+                    </span>
+
+                    <span>
+                        View Reports
+                    </span>
+
+                    <span class="button-arrow">
+                        →
+                    </span>
+                </a>
+
+                <div class="card-info">
+
+                    <div class="info-item">
+                        📈
+                        <div>
+                            Attendance Target
+                            <strong>75%</strong>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        📄
+                        <div>
+                            Detailed Reports
+                            <strong>Available</strong>
+                        </div>
+                    </div>
+
+                </div>
 
             </div>
 
         </section>
 
 
-        <section class="features">
+        <section class="quote-box">
 
-            <div class="section-heading">
-
-                <span>ATTENDANCE MANAGEMENT</span>
-
-                <h2>
-                    Manage Your Attendance System
-                </h2>
-
-                <p>
-                    More dashboard features will be added step by step.
-                </p>
-
+            <div class="quote-number">
+                66
             </div>
 
+            <div class="quote-text">
+                "Education is the most powerful weapon which you can use to change the world."
+            </div>
 
-            <div class="feature-grid">
-
-                <div class="feature-card">
-                    <div class="feature-icon">👨‍🎓</div>
-
-                    <h3>Students</h3>
-
-                    <p>
-                        Add, update and manage student information.
-                    </p>
-                </div>
-
-
-                <div class="feature-card">
-                    <div class="feature-icon">📋</div>
-
-                    <h3>Attendance</h3>
-
-                    <p>
-                        Record and manage daily student attendance.
-                    </p>
-                </div>
-
-
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-
-                    <h3>Reports</h3>
-
-                    <p>
-                        View attendance statistics and reports.
-                    </p>
-                </div>
-
+            <div class="quote-author">
+                – Nelson Mandela
             </div>
 
         </section>
 
-    </main>
+    </div>
 
 
-    <footer>
+    <footer class="dashboard-footer">
 
-        <p>
-            © 2026 AttendEase · Attendance Management System
-        </p>
+        <div class="footer-brand">
+
+            <h3>
+                AttendEase
+            </h3>
+
+            <p>
+                Attendance Management System
+            </p>
+
+        </div>
+
+        <div class="footer-copy">
+            © 2026 AttendEase. All rights reserved.
+        </div>
+
+        <div class="footer-message">
+            Built for a Better Academic Tomorrow
+            <span>♥</span>
+        </div>
 
     </footer>
 

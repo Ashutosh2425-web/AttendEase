@@ -21,12 +21,15 @@ from attendance.views import (
     home,
     login_view,
     dashboard,
+    student_dashboard,
     student_list,
     add_student,
     bulk_import,
     delete_student,
     mark_attendance,
     attendance_report,
+    attendance_pdf,
+    email_student_report,
     logout_view,
 )
 
@@ -40,11 +43,25 @@ urlpatterns = [
 
     path('dashboard/', dashboard, name='dashboard'),
 
+    path(
+        'student-dashboard/',
+        student_dashboard,
+        name='student_dashboard'
+    ),
+
     path('students/', student_list, name='student_list'),
 
-    path('students/add/', add_student, name='add_student'),
+    path(
+        'students/add/',
+        add_student,
+        name='add_student'
+    ),
 
-    path('students/import/', bulk_import, name='bulk_import'),
+    path(
+        'students/import/',
+        bulk_import,
+        name='bulk_import'
+    ),
 
     path(
         'students/delete/<int:student_id>/',
@@ -62,6 +79,18 @@ urlpatterns = [
         'attendance/report/',
         attendance_report,
         name='attendance_report'
+    ),
+
+    path(
+        'attendance/report/pdf/',
+        attendance_pdf,
+        name='attendance_pdf'
+    ),
+
+    path(
+        'attendance/report/email/<int:student_id>/',
+        email_student_report,
+        name='email_student_report'
     ),
 
     path('logout/', logout_view, name='logout'),
